@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="transaction_image">transaction_image</string>
+    <string name="profile_birthDay">生年月日</string>
+    <string name="profile_skill">得意なスキル</string>
+    <string name="profile_hobby">趣味</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- プロフィール画像 -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="@string/transaction_image" />
+
+        <!-- 名前 -->
+        <TextView
+            android:id="@+id/mDetailName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="sample"
+            android:textSize="35dp" />
+
+    </LinearLayout>
+
+    <!-- 生年月日、スキル、趣味表示レイアウト -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- 生年月日 -->
+        <TextView
+            android:id="@+id/mDetailBirthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:text="@string/profile_birthDay" />
+
+        <TextView
+            android:id="@+id/mDetailBirthDayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/mDetailBirthDay"
+            android:text="1996/07/23" />
+
+        <!-- スキル -->
+        <TextView
+            android:id="@+id/mDetailSkill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mDetailBirthDay"
+            android:text="@string/profile_skill" />
+
+        <TextView
+            android:id="@+id/mDetailSkillText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/mDetailBirthDayText"
+            android:layout_below="@+id/mDetailBirthDay"
+            android:text="C++ JAVA" />
+
+        <!-- 趣味 -->
+        <TextView
+            android:id="@+id/mDetailHobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mDetailSkill"
+            android:text="@string/profile_hobby" />
+
+        <TextView
+            android:id="@+id/mDetailHobbyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/mDetailBirthDayText"
+            android:layout_below="@+id/mDetailSkill"
+            android:text="野球観戦 ゲーム 映画" />
+    </RelativeLayout>
+</LinearLayout>
