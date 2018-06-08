@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.example.maple.memberlistapp.data.ApiDAO
 import com.example.maple.memberlistapp.data.LocalDAO
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), IAPI {
 
@@ -15,32 +17,23 @@ class MainActivity : AppCompatActivity(), IAPI {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //APIでユーザデータ取得
         ApiDAO.API_DAO.getUserData(this)
-        //createData() //仮データ作成
-
-        //初期フラグメント(メンバーリスト表示画面)を作成
-//        val fragment = MemberListFragment()
-//        val transaction = fragmentManager!!.beginTransaction()
-//        transaction.add(R.id.frameLayout, fragment)
-//        transaction.commit()
     }
-
-    //仮データをDBへ挿入
-//    private fun createData() {
-//        LocalDAO.LOCAL_DAO.writeData("0", "北林 純樹", "1996/07/23", "C++", "映画")
-//        LocalDAO.LOCAL_DAO.writeData("1", "キタバヤシ ジュンキ", "1990/00/00", "Unity", "ゲーム")
-//
-//        //LocalDAO.LOCAL_DAO.writeData("0","北林 純樹", "1996/07/23", "C++", "映画")
-//    }
 
     /**
      * API通信の成功時に呼ばれるコールバック
      */
     override fun onApiCompleted() {
+        //レイアウトの表示・非表示を行う
+        mMainActLoadBar.visibility = View.GONE    //プログレスバー非表示
+        mFrameLayout.visibility    = View.VISIBLE //フレームレイアウト表示
+        mScrollView.visibility     = View.VISIBLE //スクロールビュー表示
+
         //初期フラグメント(メンバーリスト表示画面)を作成
         val fragment = MemberListFragment()
         val transaction = fragmentManager!!.beginTransaction()
-        transaction.add(R.id.frameLayout, fragment)
+        transaction.add(R.id.mFrameLayout, fragment)
         transaction.commit()
     }
 
