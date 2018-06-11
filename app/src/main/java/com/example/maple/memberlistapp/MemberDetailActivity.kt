@@ -20,10 +20,10 @@ class MemberDetailActivity : AppCompatActivity() {
         setContentView(R.layout.fragment_member_detail)
 
         val intent: Intent = getIntent()
-        val id = intent.getStringExtra("testInput")
+        val strId:  String = intent.getStringExtra(R.string.detail_activity_key.toString())
 
         //TODO 非同期処理に変更する
-        userData = LocalDAO.LOCAL_DAO.readData(id)
+        userData = LocalDAO.LOCAL_DAO.readData(strId)
         setLayout()
     }
 
