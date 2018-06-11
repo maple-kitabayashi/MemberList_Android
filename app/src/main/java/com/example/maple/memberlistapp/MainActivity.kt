@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), IAPI {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //mDrawerLayout.openDrawer(GravityCompat.START)
         //APIでユーザデータ取得
         ApiDAO.API_DAO.getUserData(this)
     }
