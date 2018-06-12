@@ -32,7 +32,7 @@ class ApiDAO {
      * サーバDBに保存しているユーザデータを取得し、
      * ローカルDBへ保存する
      */
-    fun getUserData(call: IAPI) {
+    fun fetchUserData(call: IAPI) {
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -47,7 +47,7 @@ class ApiDAO {
                 .subscribe(
                         { list -> getUsers(list, call) },                       //onNext
                         { Log.d("tag", it.message) },                      //onError
-                        { Log.d("tag", "getUserData is complete!") } //onComplete
+                        { Log.d("tag", "fetchUserData is complete!") } //onComplete
                 )
     }
 
