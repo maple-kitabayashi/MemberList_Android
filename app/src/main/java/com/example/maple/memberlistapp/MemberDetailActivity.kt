@@ -19,7 +19,7 @@ class MemberDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_member_detail)
 
-        val intent: Intent = getIntent()
+        val intent: Intent = this.intent
         val strId:  String = intent.getStringExtra(R.string.detail_activity_key.toString())
 
         //TODO 非同期処理に変更する
@@ -29,9 +29,10 @@ class MemberDetailActivity : AppCompatActivity() {
 
     private fun setLayout() {
         val member = userData.first()
-        mDetailName.setText(member!!.name)
-        mDetailBirthDayText.setText(member!!.birthDay)
-        mDetailSkillText.setText(member!!.skill)
-        mDetailHobbyText.setText(member!!.hobby)
+        
+        mDetailName.text         = member!!.name
+        mDetailBirthDayText.text = member!!.birthDay
+        mDetailSkillText.text    = member!!.skill
+        mDetailHobbyText.text    = member!!.hobby
     }
 }
