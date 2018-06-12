@@ -26,6 +26,7 @@ class ApiDAO {
 
     companion object {
         val API_DAO: ApiDAO by lazy { ApiDAO() } //この変数を使い、全てのオブジェクトからアクセス可能にする
+        val TAG: String by lazy { ApiDAO::class.java.simpleName }
     }
 
     /**
@@ -36,18 +37,18 @@ class ApiDAO {
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://sampleapi9923458.herokuapp.com/")
+                .baseUrl("https://ms-employees.herokuapp.com/")
                 .build()
 
         val service: UserService = retrofit.create(UserService::class.java)
 
-        disposable = service.getUsers()
+        disposable = service.getUsers("1991-12-16 00:00:00")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { list -> getUsers(list, call) },                       //onNext
-                        { Log.d("tag", it.message) },                      //onError
-                        { Log.d("tag", "getUserData is complete!") } //onComplete
+                        { Log.d(TAG, it.message) },                      //onError
+                        { Log.d(TAG, "getUserData is complete!") } //onComplete
                 )
     }
 
