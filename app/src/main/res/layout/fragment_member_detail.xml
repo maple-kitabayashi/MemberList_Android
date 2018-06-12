@@ -87,10 +87,13 @@
             android:text="野球観戦 ゲーム 映画" />
 
     </RelativeLayout>
+
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mDetailEditBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_setting_white_24dp"/>
+        android:src="@drawable/ic_setting_white_24dp"
+        android:visibility="gone" />
 
 </LinearLayout>

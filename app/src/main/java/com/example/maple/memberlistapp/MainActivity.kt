@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     private fun createMyDetailActivity() {
         val intent = Intent(this, MemberDetailActivity::class.java)
-        intent.putExtra(R.string.detail_activity_key.toString(), "1")
+        intent.putExtra(R.string.detail_activity_key_id.toString(), "1")
+        intent.putExtra(R.string.detail_activity_key_visibility.toString(), true)
         startActivity(intent)
     }
 

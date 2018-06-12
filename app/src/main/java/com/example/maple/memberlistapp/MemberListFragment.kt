@@ -85,7 +85,8 @@ class MemberListFragment : Fragment() {
                 val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!, cardImage, cardImage.transitionName)
                 val intent = Intent(activity, MemberDetailActivity::class.java)
                 
-                intent.putExtra(R.string.detail_activity_key.toString(), user.id)
+                intent.putExtra(R.string.detail_activity_key_id.toString(), user.id)
+                intent.putExtra(R.string.detail_activity_key_visibility.toString(), false)
                 startActivity(intent, compat.toBundle())
             }
             //カード追加
