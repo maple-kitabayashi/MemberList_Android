@@ -1,5 +1,7 @@
 package com.example.maple.memberlistapp
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
@@ -17,8 +19,11 @@ class MainActivity : AppCompatActivity(), IAPI {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val pref: SharedPreferences = getSharedPreferences("testPre", Context.MODE_PRIVATE)
+        val lastDate: String = pref.getString("lastDate", "")
         //APIでユーザデータ取得
-        ApiDAO.API_DAO.getUserData(this)
+        ApiDAO.API_DAO.getUserData(this, lastDate)
     }
 
     /**
