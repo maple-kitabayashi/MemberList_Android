@@ -43,12 +43,12 @@ class ApiDAO {
 
         val service: UserService = retrofit.create(UserService::class.java)
 
-        disposable = service.getUsers(lastDate)
+        disposable = service.getUsers(lastDate )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { list -> getUsers(list, call) },                       //onNext
-                        { Log.d(TAG, it.message) },                      //onError
+                        { throwable ->  throw throwable },                      //onError
                         { Log.d(TAG, "getUserData is complete!") } //onComplete
                 )
     }
