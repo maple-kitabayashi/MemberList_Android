@@ -16,13 +16,13 @@ open class MemberListApplication : Application() {
         val realmConfiguration: RealmConfiguration = RealmConfiguration.Builder().build()
         Realm.setDefaultConfiguration(realmConfiguration)
 
-        val preferences: SharedPreferences = getSharedPreferences("testPre", Context.MODE_PRIVATE)
-
-        val isStart: Boolean = preferences.getBoolean("isStart", true)
-        if (isStart) {
+        //アプリ初回起動処理
+        val preferences: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
+        val isFirstTime: Boolean           = preferences.getBoolean("isFirstTime", true)
+        if (isFirstTime) { //初回起動か確認
             var edit = preferences.edit()
-            edit.putBoolean("isStart", false)
-            edit.putString("lastDate", "1990-01-01  00:00:00")
+            edit.putBoolean("isFirstTime", false)
+            edit.putString(Util.PREF_KEY_LAST_UPDATE_TIME, Util.DEFAULT_LAST_UPDATE_TIME) //最終更新日の初期値を設定
             edit.commit()
         }
 
