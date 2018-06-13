@@ -57,4 +57,12 @@ class ApiDAO {
         LocalDAO.LOCAL_DAO.writeDataList(list) //ローカルDBへ保存
         call.onApiCompleted()
     }
+
+    fun tryLogin(email: String, password: String) {
+        retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("")
+                .build()
+    }
 }

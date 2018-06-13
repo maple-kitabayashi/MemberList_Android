@@ -12,4 +12,11 @@ interface UserService {
     fun getUsers(
             @Query("lastUpDate") lastUpDate: String //最終更新日
     ): Observable<List<User>>
+
+    //ログイン処理
+    @POST("login/login")
+    fun tryLogin(
+            @Query("email")    email:    String,
+            @Query("password") password: String
+    ): Observable<List<User>>
 }
