@@ -4,4 +4,8 @@
     <string name="profile_birthDay">生年月日</string>
     <string name="profile_skill">得意なスキル</string>
     <string name="profile_hobby">趣味</string>
+
+    <!-- KEY -->
+    <string name="detail_activity_key_id">DETAIL_ACTIVITY_KEY_ID</string>
+    <string name="detail_activity_key_visibility">DETAIL_ACTIVITY_KEY_VISIBILITY</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.maple.memberlistapp.data
 
-import android.content.SharedPreferences
 import android.util.Log
 import com.example.maple.memberlistapp.IAPI
 import com.example.maple.memberlistapp.UserService
@@ -34,7 +33,7 @@ class ApiDAO {
      * サーバDBに保存しているユーザデータを取得し、
      * ローカルDBへ保存する
      */
-    fun getUserData(call: IAPI, lastDate: String) {
+    fun fetchUserData(call: IAPI, lastDate: String) {
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

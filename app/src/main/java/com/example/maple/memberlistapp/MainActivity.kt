@@ -1,19 +1,23 @@
 package com.example.maple.memberlistapp
 
+import android.content.Intent
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import com.example.maple.memberlistapp.data.ApiDAO
 import com.example.maple.memberlistapp.data.LocalDAO
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), IAPI {
+class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemSelectedListener {
 
     private var fragmentManager: FragmentManager? = supportFragmentManager
 
@@ -23,12 +27,47 @@ class MainActivity : AppCompatActivity(), IAPI {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
         setContentView(R.layout.activity_main)
 
         val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
         val lastDate: String = pref.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
+        //ナビゲーションビューの設定
+        navigastionViewSetting()
+
         //APIでユーザデータ取得
-        ApiDAO.API_DAO.getUserData(this, lastDate)
+        ApiDAO.API_DAO.fetchUserData(this, lastDate)
+    }
+
+    private fun navigastionViewSetting() {
+        val header   = mNavigationView.getHeaderView(0)
+        val nameText = header.findViewById(R.id.nav_header_name) as TextView
+        val menu     = mNavigationView.menu
+
+        mNavigationView.setNavigationItemSelectedListener(this)
+    }
+
+    /**
+     * ユーザーの詳細画面を表示
+     */
+    private fun createMyDetailActivity() {
+        val intent = Intent(this, MemberDetailActivity::class.java)
+        intent.putExtra(R.string.detail_activity_key_id.toString(), "1")
+        intent.putExtra(R.string.detail_activity_key_visibility.toString(), true)
+        startActivity(intent)
+    }
+
+    /**
+     * ナビゲーションビューのメニュー押下時に呼ばれる
+     */
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            //プロフィールメニュー
+            R.id.nc_profile -> {
+                createMyDetailActivity()
+            }
+        }
+        return false
     }
 
     /**
@@ -44,8 +83,9 @@ class MainActivity : AppCompatActivity(), IAPI {
         mScrollView.visibility     = View.VISIBLE //スクロールビュー表示
 
         //初期フラグメント(メンバーリスト表示画面)を作成
-        val fragment = MemberListFragment()
+        val fragment    = MemberListFragment()
         val transaction = fragmentManager!!.beginTransaction()
+
         transaction.add(R.id.mFrameLayout, fragment)
         transaction.commit()
     }
@@ -68,7 +108,7 @@ class MainActivity : AppCompatActivity(), IAPI {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("MainActivity", "onDestroy")
+        Log.d(TAG, "onDestroy")
         LocalDAO.LOCAL_DAO.closeRealm()
     }
 }

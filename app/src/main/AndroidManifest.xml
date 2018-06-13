@@ -23,6 +23,10 @@
         <activity android:name=".MemberDetailActivity">
 
         </activity>
+        <!-- 編集画面 -->
+        <activity android:name=".EditActivity">
+
+        </activity>
     </application>
 
 </manifest>

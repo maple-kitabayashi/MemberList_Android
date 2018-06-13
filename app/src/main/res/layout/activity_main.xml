@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -25,9 +26,27 @@
 
     </ScrollView>
 
-    <FrameLayout
-        android:id="@+id/mFrameLayout"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/mDrawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/mFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <!-- ナビゲーションビュー -->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/mNavigationView"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/item_main_drawer"
+            app:headerLayout="@layout/nav_header_main"/>
+
+    </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>
