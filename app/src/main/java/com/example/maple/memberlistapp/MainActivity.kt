@@ -30,6 +30,12 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         Log.d(TAG, "onCreate")
         setContentView(R.layout.activity_main)
 
+        if (!LocalDAO.LOCAL_DAO.isLogined()) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            return
+        }
+
         val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
         val lastDate: String = pref.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
         //ナビゲーションビューの設定

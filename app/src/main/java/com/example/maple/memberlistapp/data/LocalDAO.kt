@@ -64,6 +64,11 @@ class LocalDAO {
         }
     }
 
+    fun isLogined(): Boolean {
+        mRealm = Realm.getDefaultInstance()
+        return mRealm.where(MyAccount::class.java).findAll().size != 0
+    }
+
     fun writeDataJava(name: String, birthDay: String, skill: String, hobby: String) {
         mRealm = Realm.getDefaultInstance()
         mRealm.executeTransaction {
