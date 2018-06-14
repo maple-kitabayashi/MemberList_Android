@@ -5,21 +5,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
-import com.example.maple.memberlistapp.data.ApiDAO
-import com.example.maple.memberlistapp.data.LocalDAO
-import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemSelectedListener {
 
-    private var fragmentManager: FragmentManager? = supportFragmentManager
+    //private var fragmentManager: FragmentManager? = supportFragmentManager
+    private var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
     companion object {
         val TAG: String = MainActivity::class.java.simpleName
@@ -32,9 +28,18 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
 
         //ログインしているか確認
         if(isLogined()) {
-            //ログイン画面
-        } else {
             //メンバー表示フラグメント
+
+        } else {
+            //ログイン画面
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+//            val loginFragment: LoginFragment = LoginFragment()
+//            //fragmentTransaction.add(R.id.mFrameLayout, loginFragment)
+//            fragmentTransaction.replace(R.id.login_frame_layout, loginFragment)
+//            fragmentTransaction.addToBackStack(null)
+//            fragmentTransaction.commit()
         }
 
 //        val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)

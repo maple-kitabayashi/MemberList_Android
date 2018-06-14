@@ -30,16 +30,20 @@
     </ScrollView>
 -->
 
+<!--
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/mDrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+-->
 
+<!--
         <FrameLayout
-            android:id="@+id/mFrameLayout"
+            android:id="@+id/login_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:visibility="visible" />
+-->
 
         <!-- ナビゲーションビュー -->
 <!--
@@ -53,6 +57,8 @@
             app:headerLayout="@layout/nav_header_main"/>
 -->
 
+<!--
     </android.support.v4.widget.DrawerLayout>
+-->
 
 </LinearLayout>

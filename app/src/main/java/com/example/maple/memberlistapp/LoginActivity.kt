@@ -5,9 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.example.maple.memberlistapp.api.MyAccount
-import com.example.maple.memberlistapp.data.ApiDAO
-import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), IAPI {
 
@@ -19,19 +16,24 @@ class LoginActivity : AppCompatActivity(), IAPI {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
 
-        if (isLogined()) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+//        if (isLogined()) {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
 
         setContentView(R.layout.activity_login)
 
-        mSignInBtn.setOnClickListener {
-            Log.d(TAG, "SignInButton Clicked")
-            val email: String    = mLoginMailText.text.toString()
-            val password: String = mLoginPWText.text.toString()
-            ApiDAO.API_DAO.tryLogin(this, email, password)
-        }
+        val transaction = supportFragmentManager.beginTransaction()
+        val fragment    = LoginFragment()
+        transaction.replace(R.id.login_frame_layout, fragment)
+        transaction.commit()
+
+//        mSignInBtn.setOnClickListener {
+//            Log.d(TAG, "SignInButton Clicked")
+//            val email: String    = mLoginMailText.text.toString()
+//            val password: String = mLoginPWText.text.toString()
+//            ApiDAO.API_DAO.tryLogin(this, email, password)
+//        }
     }
 
     private fun isLogined(): Boolean {
