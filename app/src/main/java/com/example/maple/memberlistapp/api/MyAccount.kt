@@ -1,14 +1,17 @@
 package com.example.maple.memberlistapp.api
 
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.Required
 
 /**
  * ログイン中のアカウント情報
  */
 open class MyAccount : RealmObject() {
-    var name:     String = ""
-    var birthDay: String = ""
-    var skill:    String = ""
-    var hobby:    String = ""
-    var image:    String = ""
+    @PrimaryKey var id:       String = ""
+    @Required   var name:     String = ""
+    @Required   var birthDay: String = ""
+    @Required   var skill:    String = ""
+    @Required   var hobby:    String = ""
+    @Required   var image:    String = ""
 }
