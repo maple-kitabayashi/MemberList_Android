@@ -3,6 +3,7 @@ package com.example.maple.memberlistapp.data
 import android.util.Log
 import com.example.maple.memberlistapp.IAPI
 import com.example.maple.memberlistapp.UserService
+import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.api.User
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -53,16 +54,34 @@ class ApiDAO {
     }
 
     private fun getUsers(list :List<User>, call: IAPI) {
-
         LocalDAO.LOCAL_DAO.writeDataList(list) //ローカルDBへ保存
         call.onApiCompleted()
     }
 
-    fun tryLogin(email: String, password: String) {
+    /**
+     * ユーザーから入力されたデータでログインを試す
+     */
+    fun tryLogin(call: IAPI, email: String, password: String) {
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("")
+                .baseUrl("https://ms-employees.herokuapp.com/")
                 .build()
+
+        val service: UserService = retrofit.create(UserService::class.java)
+
+        disposable = service.tryLogin(email, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { list -> saveMyAccount(list, call) },
+                        { throwable -> throw throwable },
+                        { Log.d(TAG, "tryLogin is complete!") }
+                )
+    }
+
+    fun saveMyAccount(list: List<MyAccount>, call: IAPI) {
+        
+        call.onApiCompleted()
     }
 }

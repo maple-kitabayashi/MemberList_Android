@@ -1,5 +1,6 @@
 package com.example.maple.memberlistapp
 
+import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.api.User
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -18,5 +19,5 @@ interface UserService {
     fun tryLogin(
             @Query("email")    email:    String,
             @Query("password") password: String
-    ): Observable<List<User>>
+    ): Observable<List<MyAccount>>
 }
