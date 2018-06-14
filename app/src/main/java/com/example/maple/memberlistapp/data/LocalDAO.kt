@@ -58,16 +58,16 @@ class LocalDAO {
         mRealm = Realm.getDefaultInstance()
 
         mRealm.executeTransaction {
-            val account = list.first()
-            val saveData = mRealm.createObject(MyAccount::class.java)
+            val account   = list.first()
+            val saveData  = mRealm.createObject(MyAccount::class.java, account.id)
             saveData.name = account.name
         }
     }
 
-    fun isLogined(): Boolean {
-        mRealm = Realm.getDefaultInstance()
-        return mRealm.where(MyAccount::class.java).findAll().size != 0
-    }
+//    fun isLogined(): Boolean {
+//        mRealm = Realm.getDefaultInstance()
+//        return mRealm.where(MyAccount::class.java).findAll().size != 0
+//    }
 
     fun writeDataJava(name: String, birthDay: String, skill: String, hobby: String) {
         mRealm = Realm.getDefaultInstance()

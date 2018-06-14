@@ -15,6 +15,7 @@ interface UserService {
     ): Observable<List<User>>
 
     //ログイン処理
+    @Headers("Authorization: Token GfjrNvFaqj6Ebhda")
     @POST("login/login")
     fun tryLogin(
             @Query("email")    email:    String,

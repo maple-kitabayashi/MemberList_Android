@@ -1,7 +1,9 @@
 package com.example.maple.memberlistapp.data
 
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.maple.memberlistapp.IAPI
+import com.example.maple.memberlistapp.LoginActivity
 import com.example.maple.memberlistapp.UserService
 import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.api.User
@@ -35,6 +37,8 @@ class ApiDAO {
      * ローカルDBへ保存する
      */
     fun fetchUserData(call: IAPI, lastDate: String) {
+        Log.d(TAG, "fetchUserData")
+
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -62,6 +66,8 @@ class ApiDAO {
      * ユーザーから入力されたデータでログインを試す
      */
     fun tryLogin(call: IAPI, email: String, password: String) {
+        Log.d(TAG, "tryLogin")
+
         retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -75,13 +81,21 @@ class ApiDAO {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { list -> saveMyAccount(list, call) },
-                        { throwable -> throw throwable },
+                        { throwable -> /*Log.e(TAG, throwable.message)*/ throw throwable },
                         { Log.d(TAG, "tryLogin is complete!") }
                 )
     }
 
     fun saveMyAccount(list: List<MyAccount>, call: IAPI) {
-        LocalDAO.LOCAL_DAO.saveMyAccount(list)
-        call.onApiCompleted()
+        Log.d(TAG, "saveMyAccount")
+
+        val account: MyAccount = list.first()
+        if (account.id != "-1") {
+            LocalDAO.LOCAL_DAO.saveMyAccount(list) //保存
+            call.onApiCompleted() //成功
+        } else {
+            call.onApiFailed()    //失敗
+        }
+
     }
 }

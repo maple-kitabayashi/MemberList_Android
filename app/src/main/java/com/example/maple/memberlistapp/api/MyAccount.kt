@@ -10,8 +10,8 @@ import io.realm.annotations.Required
 open class MyAccount : RealmObject() {
     @PrimaryKey var id:       String = ""
     @Required   var name:     String = ""
-    @Required   var birthDay: String = ""
-    @Required   var skill:    String = ""
-    @Required   var hobby:    String = ""
-    @Required   var image:    String = ""
+//    @Required   var birthDay: String = ""
+//    @Required   var skill:    String = ""
+//    @Required   var hobby:    String = ""
+//    @Required   var image:    String = ""
 }
