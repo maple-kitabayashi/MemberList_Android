@@ -22,25 +22,25 @@
     <!-- メールアドレス記入欄 -->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_email">
 
         <EditText
             android:id="@+id/mLoginMailText"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="MailAddress" />
+            android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
 
     <!-- パスワード記入欄 -->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_password">
 
         <EditText
             android:id="@+id/mLoginPWText"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Password" />
+            android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
 
     <!-- サインインボタン -->
