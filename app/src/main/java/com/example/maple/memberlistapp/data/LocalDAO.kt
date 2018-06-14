@@ -1,5 +1,6 @@
 package com.example.maple.memberlistapp.data
 
+import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.api.User
 import io.realm.Realm
 import io.realm.RealmResults
@@ -49,6 +50,17 @@ class LocalDAO {
                 data.skill    = user.skill
                 data.hobby    = user.hobby
             }
+        }
+    }
+
+    //マイアカウントを保存
+    fun saveMyAccount(list: List<MyAccount>) {
+        mRealm = Realm.getDefaultInstance()
+
+        mRealm.executeTransaction {
+            val account = list.first()
+            val saveData = mRealm.createObject(MyAccount::class.java)
+            saveData.name = account.name
         }
     }
 

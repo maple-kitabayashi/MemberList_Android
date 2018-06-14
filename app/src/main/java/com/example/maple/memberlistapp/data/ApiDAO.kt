@@ -81,7 +81,7 @@ class ApiDAO {
     }
 
     fun saveMyAccount(list: List<MyAccount>, call: IAPI) {
-        
+        LocalDAO.LOCAL_DAO.saveMyAccount(list)
         call.onApiCompleted()
     }
 }
