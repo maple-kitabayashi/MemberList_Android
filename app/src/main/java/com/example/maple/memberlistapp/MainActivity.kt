@@ -30,22 +30,35 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         Log.d(TAG, "onCreate")
         setContentView(R.layout.activity_main)
 
-        val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
-        val lastDate: String = pref.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
-        //ナビゲーションビューの設定
-        navigastionViewSetting()
+        //ログインしているか確認
+        if(isLogined()) {
+            //ログイン画面
+        } else {
+            //メンバー表示フラグメント
+        }
 
-        //APIでユーザデータ取得
-        ApiDAO.API_DAO.fetchUserData(this, lastDate)
+//        val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
+//        val lastDate: String = pref.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
+//        //ナビゲーションビューの設定
+//        navigastionViewSetting()
+//
+//        //APIでユーザデータ取得
+//        ApiDAO.API_DAO.fetchUserData(this, lastDate)
     }
 
-    private fun navigastionViewSetting() {
-        val header   = mNavigationView.getHeaderView(0)
-        val nameText = header.findViewById(R.id.nav_header_name) as TextView
-        val menu     = mNavigationView.menu
-
-        mNavigationView.setNavigationItemSelectedListener(this)
+    private fun isLogined(): Boolean {
+        val preferences = getSharedPreferences(Util.PREF_LOGIN_STATUS, Context.MODE_PRIVATE)
+        val isLogin     = preferences.getBoolean(Util.PREF_KEY_LOGIN_STATUS, false)
+        return isLogin
     }
+
+//    private fun navigastionViewSetting() {
+//        val header   = mNavigationView.getHeaderView(0)
+//        val nameText = header.findViewById(R.id.nav_header_name) as TextView
+//        val menu     = mNavigationView.menu
+//
+//        mNavigationView.setNavigationItemSelectedListener(this)
+//    }
 
     /**
      * ユーザーの詳細画面を表示
@@ -74,20 +87,20 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
      * API通信の成功時に呼ばれるコールバック
      */
     override fun onApiCompleted() {
-        //最終更新日を更新する
-        updateLastUpdateTime()
-
-        //レイアウトの表示・非表示を行う
-        mMainActLoadBar.visibility = View.GONE    //プログレスバー非表示
-        mFrameLayout.visibility    = View.VISIBLE //フレームレイアウト表示
-        mScrollView.visibility     = View.VISIBLE //スクロールビュー表示
-
-        //初期フラグメント(メンバーリスト表示画面)を作成
-        val fragment    = MemberListFragment()
-        val transaction = fragmentManager!!.beginTransaction()
-
-        transaction.add(R.id.mFrameLayout, fragment)
-        transaction.commit()
+//        //最終更新日を更新する
+//        updateLastUpdateTime()
+//
+//        //レイアウトの表示・非表示を行う
+//        mMainActLoadBar.visibility = View.GONE    //プログレスバー非表示
+//        mFrameLayout.visibility    = View.VISIBLE //フレームレイアウト表示
+//        mScrollView.visibility     = View.VISIBLE //スクロールビュー表示
+//
+//        //初期フラグメント(メンバーリスト表示画面)を作成
+//        val fragment    = MemberListFragment()
+//        val transaction = fragmentManager!!.beginTransaction()
+//
+//        transaction.add(R.id.mFrameLayout, fragment)
+//        transaction.commit()
     }
 
     override fun onApiFailed() {
@@ -110,9 +123,9 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         editor.commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy")
-        LocalDAO.LOCAL_DAO.closeRealm()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        Log.d(TAG, "onDestroy")
+//        LocalDAO.LOCAL_DAO.closeRealm()
+//    }
 }

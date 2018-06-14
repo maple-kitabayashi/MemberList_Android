@@ -5,12 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+<!--
     <ProgressBar
         android:id="@+id/mMainActLoadBar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal" />
+-->
 
+<!--
     <ScrollView
         android:id="@+id/mScrollView"
         android:layout_width="match_parent"
@@ -25,6 +28,7 @@
             android:orientation="vertical" />
 
     </ScrollView>
+-->
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/mDrawerLayout"
@@ -38,6 +42,7 @@
             android:visibility="gone" />
 
         <!-- ナビゲーションビュー -->
+<!--
         <android.support.design.widget.NavigationView
             android:id="@+id/mNavigationView"
             android:layout_width="240dp"
@@ -46,6 +51,7 @@
             android:fitsSystemWindows="true"
             app:menu="@menu/item_main_drawer"
             app:headerLayout="@layout/nav_header_main"/>
+-->
 
     </android.support.v4.widget.DrawerLayout>
 
