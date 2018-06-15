@@ -1,6 +1,9 @@
 package com.example.maple.memberlistapp
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
@@ -12,6 +15,7 @@ import com.example.maple.memberlistapp.api.User
 import com.example.maple.memberlistapp.data.LocalDAO
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_member_detail.*
+import java.io.IOException
 
 class MemberDetailFragment : Fragment() {
 
@@ -71,4 +75,20 @@ class MemberDetailFragment : Fragment() {
         mDetailHobbyText.text    = member!!.hobby
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d(TAG, "onActivityResult")
+
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val uri: Uri = data.data
+                try {
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, uri)
+                    mDetailImage.setImageBitmap(bitmap)
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 }

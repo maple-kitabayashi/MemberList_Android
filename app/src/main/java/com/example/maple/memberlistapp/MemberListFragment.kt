@@ -67,7 +67,7 @@ class MemberListFragment : Fragment(), IAPI {
             val linearLayout = inflater.inflate(R.layout.item_member_cardview, null) as LinearLayout
             val cardImage    = linearLayout.findViewById(R.id.card_image)                 as ImageView
             val cardView     = linearLayout.findViewById(R.id.member_card_view)           as CardView
-            val cardName     = linearLayout.findViewById(R.id.mDetailName)                as TextView
+            val cardName     = linearLayout.findViewById(R.id.mCardName)                as TextView
             val cardBirthDay = linearLayout.findViewById(R.id.card_birthday)              as TextView
 
             cardName.setText(user.name)
