@@ -1,10 +1,12 @@
 package com.example.maple.memberlistapp.data
 
+import android.app.Activity
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.maple.memberlistapp.IAPI
 import com.example.maple.memberlistapp.LoginActivity
 import com.example.maple.memberlistapp.UserService
+import com.example.maple.memberlistapp.Util
 import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.api.User
 import com.google.gson.Gson

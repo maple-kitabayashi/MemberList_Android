@@ -19,7 +19,10 @@ class LocalDAO {
     }
 
     //全データ取得
-    fun readData(): RealmResults<User> = mRealm.where(User::class.java).findAll()
+    fun readData(): RealmResults<User> {
+        mRealm = Realm.getDefaultInstance()
+        return mRealm.where(User::class.java).findAll()
+    }
 
     //IDが一致するデータを取得
     fun readData(id: String): RealmResults<User> = mRealm.where(User::class.java).equalTo("id", id).findAll()
@@ -43,12 +46,15 @@ class LocalDAO {
         mRealm = Realm.getDefaultInstance()
 
         mRealm.executeTransaction {
-            for (user in list) {
+            for ((index, user) in list.withIndex()) {
                 val data = mRealm.createObject(User::class.java, user.id)
                 data.name     = user.name
                 data.birthDay = user.birthDay
                 data.skill    = user.skill
                 data.hobby    = user.hobby
+                //TODO 実データで実施まで50個のデータで行う
+                if (index == 50)
+                    break
             }
         }
     }
