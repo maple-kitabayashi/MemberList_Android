@@ -58,4 +58,9 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack {
         editor.commit()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d(TAG, "onBackPressed")
+        finish()
+    }
 }
