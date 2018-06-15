@@ -2,6 +2,7 @@ package com.example.maple.memberlistapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class MemberDetailFragment : Fragment() {
 
     companion object {
         val TAG = MemberDetailFragment::class.java.simpleName
+        private const val READ_REQUEST_CODE = 42
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,12 +44,20 @@ class MemberDetailFragment : Fragment() {
         setLayout()
 
         mDetailEditBtn.setOnClickListener {
+            Log.d(TAG, "setOnClickListener")
             val intent = Intent(activity, EditActivity::class.java)
             intent.putExtra("testName", mDetailName.text)
             intent.putExtra("testBirthDay", mDetailBirthDayText.text)
             intent.putExtra("testSkill", mDetailSkillText.text)
             intent.putExtra("testHobby", mDetailHobbyText.text)
             startActivity(intent)
+        }
+
+        mDetailImage.setOnClickListener{
+            Log.d(TAG, "setOnClickListener")
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent.type = "image/*"
+            startActivityForResult(intent, READ_REQUEST_CODE)
         }
     }
 

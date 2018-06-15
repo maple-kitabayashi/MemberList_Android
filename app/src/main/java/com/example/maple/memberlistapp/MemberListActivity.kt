@@ -59,7 +59,7 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
     /**
      * 端末で保存している最終更新時間を更新
      */
-    fun updateLastUpdateTime() {
+    private fun updateLastUpdateTime() {
         Log.d(TAG, "updateLastUpdateTime")
 
         //現在の日時を取得
