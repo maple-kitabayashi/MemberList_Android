@@ -51,34 +51,12 @@ class MemberListFragment : Fragment(), IAPI {
 
         mCardLinear.removeAllViews()
 
-        //TODO 別スレッドでDB読み込み コールバック用意する
-//        mJob = async {
-//            myTask()
-//        }
         //最終更新時間を取得
         val preference = activity!!.getSharedPreferences(Util.PREF_LAST_UPDATE, MODE_PRIVATE)
         val lastDate: String = preference.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
         //サーバーからユーザーデータ取得
         ApiDAO.API_DAO.fetchUserData(this, lastDate)
     }
-
-//    private suspend fun myTask() {
-//
-//        async(UI) {
-//            Log.d("Task", "task_start")
-//        }
-//
-//        async {
-//            //端末DBから、全メンバーデータを取得
-//            var memberData = LocalDAO.LOCAL_DAO.readData()
-//            //取得したメンバーデータをカードにセット
-//            setCardData(memberData)
-//        }
-//
-//        async(UI) {
-//            Log.d("Task", "task_end")
-//        }
-//    }
 
     private fun setCardData(data: RealmResults<User>) {
         Log.d(TAG, "setCardData_start")

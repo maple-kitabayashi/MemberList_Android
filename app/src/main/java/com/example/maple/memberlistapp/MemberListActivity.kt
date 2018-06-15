@@ -35,7 +35,7 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack {
     override fun callback() {
         Log.d(TAG, "callback")
         updateLastUpdateTime()                  //最終更新時間を更新
-        mMemListBar.visibility = View.GONE      //プログレスバー非表示
+        mMemListBar.visibility   = View.GONE    //プログレスバー非表示
         mMemListFrame.visibility = View.VISIBLE //フレームレイアウト(メンバーリスト)表示
     }
 
@@ -47,7 +47,7 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack {
 
         //現在の日時を取得
         val date: Date = Date()
-        val nowTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
+        val nowTime    = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
 
         Log.d(TAG, "nowTime = " + nowTime)
 
