@@ -1,64 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-<!--
-    <ProgressBar
-        android:id="@+id/mMainActLoadBar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal" />
--->
-
-<!--
-    <ScrollView
-        android:id="@+id/mScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="false"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/ｍCardLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-    </ScrollView>
--->
-
-<!--
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/mDrawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
--->
-
-<!--
-        <FrameLayout
-            android:id="@+id/login_frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
--->
-
-        <!-- ナビゲーションビュー -->
-<!--
-        <android.support.design.widget.NavigationView
-            android:id="@+id/mNavigationView"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:menu="@menu/item_main_drawer"
-            app:headerLayout="@layout/nav_header_main"/>
--->
-
-<!--
-    </android.support.v4.widget.DrawerLayout>
--->
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

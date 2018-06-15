@@ -12,10 +12,7 @@ import android.view.MenuItem
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemSelectedListener {
-
-    //private var fragmentManager: FragmentManager? = supportFragmentManager
-    private var fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         val TAG: String = MainActivity::class.java.simpleName
@@ -34,22 +31,9 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         } else {
             //ログイン画面
             intent = Intent(this, LoginActivity::class.java)
-//            val loginFragment: LoginFragment = LoginFragment()
-//            //fragmentTransaction.add(R.id.mFrameLayout, loginFragment)
-//            fragmentTransaction.replace(R.id.login_frame_layout, loginFragment)
-//            fragmentTransaction.addToBackStack(null)
-//            fragmentTransaction.commit()
         }
         startActivity(intent)
         finish()
-
-//        val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
-//        val lastDate: String = pref.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
-//        //ナビゲーションビューの設定
-//        navigastionViewSetting()
-//
-//        //APIでユーザデータ取得
-//        ApiDAO.API_DAO.fetchUserData(this, lastDate)
     }
 
     private fun isLogined(): Boolean {
@@ -57,14 +41,6 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         val isLogin     = preferences.getBoolean(Util.PREF_KEY_LOGIN_STATUS, false)
         return isLogin
     }
-
-//    private fun navigastionViewSetting() {
-//        val header   = mNavigationView.getHeaderView(0)
-//        val nameText = header.findViewById(R.id.nav_header_name) as TextView
-//        val menu     = mNavigationView.menu
-//
-//        mNavigationView.setNavigationItemSelectedListener(this)
-//    }
 
     /**
      * ユーザーの詳細画面を表示
@@ -90,30 +66,6 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
     }
 
     /**
-     * API通信の成功時に呼ばれるコールバック
-     */
-    override fun onApiCompleted() {
-//        //最終更新日を更新する
-//        updateLastUpdateTime()
-//
-//        //レイアウトの表示・非表示を行う
-//        mMainActLoadBar.visibility = View.GONE    //プログレスバー非表示
-//        mFrameLayout.visibility    = View.VISIBLE //フレームレイアウト表示
-//        mScrollView.visibility     = View.VISIBLE //スクロールビュー表示
-//
-//        //初期フラグメント(メンバーリスト表示画面)を作成
-//        val fragment    = MemberListFragment()
-//        val transaction = fragmentManager!!.beginTransaction()
-//
-//        transaction.add(R.id.mFrameLayout, fragment)
-//        transaction.commit()
-    }
-
-    override fun onApiFailed() {
-
-    }
-
-    /**
      * 最終更新日を更新
      */
     private fun updateLastUpdateTime() {
@@ -129,9 +81,8 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         editor.commit()
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        Log.d(TAG, "onDestroy")
-//        LocalDAO.LOCAL_DAO.closeRealm()
-//    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+    }
 }

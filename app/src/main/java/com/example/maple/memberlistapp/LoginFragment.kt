@@ -12,6 +12,9 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), IAPI {
 
+    /**
+     * Activityに返すためのコールバックを定義
+     */
     interface CallBack{
         fun callback()
     }
@@ -24,7 +27,6 @@ class LoginFragment : Fragment(), IAPI {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView")
-        //container!!.removeAllViews()
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -41,6 +43,9 @@ class LoginFragment : Fragment(), IAPI {
         }
     }
 
+    /**
+     * ログイン成功コールバック
+     */
     override fun onApiCompleted() {
         Log.d(TAG, "onApiCompleted")
 
@@ -54,8 +59,11 @@ class LoginFragment : Fragment(), IAPI {
         callBack.callback()
     }
 
+    /**
+     * ログイン失敗コールバック
+     */
     override fun onApiFailed() {
         Log.d(TAG, "onApiFailed")
-
+        //TODO ユーザーに失敗したのを伝える
     }
 }
