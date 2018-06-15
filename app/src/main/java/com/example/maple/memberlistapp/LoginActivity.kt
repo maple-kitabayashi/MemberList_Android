@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 
-class LoginActivity : AppCompatActivity(), IAPI {
+class LoginActivity : AppCompatActivity(), LoginFragment.CallBack {
 
     companion object {
         val TAG = LoginActivity::class.java.simpleName
+    }
+
+    interface CallBack{
+        fun callBack()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,26 +40,32 @@ class LoginActivity : AppCompatActivity(), IAPI {
 //        }
     }
 
-    private fun isLogined(): Boolean {
-        val preferences = getSharedPreferences(Util.PREF_LOGIN_STATUS, Context.MODE_PRIVATE)
-        val isLogin = preferences.getBoolean(Util.PREF_KEY_LOGIN_STATUS, false)
-        return isLogin
-    }
+//    private fun isLogined(): Boolean {
+//        val preferences = getSharedPreferences(Util.PREF_LOGIN_STATUS, Context.MODE_PRIVATE)
+//        val isLogin = preferences.getBoolean(Util.PREF_KEY_LOGIN_STATUS, false)
+//        return isLogin
+//    }
 
-    override fun onApiCompleted() {
-        Log.d(TAG, "onApiCompleted")
-        val pref = getSharedPreferences(Util.PREF_LOGIN_STATUS, Context.MODE_PRIVATE)
-        val editor = pref.edit()
-        editor.putBoolean(Util.PREF_KEY_LOGIN_STATUS, true)
-
-        val intent = Intent(this, MainActivity::class.java)
+    override fun callback() {
+        val intent = Intent(this, MemberListActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    override fun onApiFailed() {
-        Log.d(TAG, "onApiFailed")
-    }
+//    override fun onApiCompleted() {
+//        Log.d(TAG, "onApiCompleted")
+//        val pref = getSharedPreferences(Util.PREF_LOGIN_STATUS, Context.MODE_PRIVATE)
+//        val editor = pref.edit()
+//        editor.putBoolean(Util.PREF_KEY_LOGIN_STATUS, true)
+//
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
+
+//    override fun onApiFailed() {
+//        Log.d(TAG, "onApiFailed")
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

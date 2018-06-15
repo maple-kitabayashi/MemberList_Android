@@ -23,6 +23,10 @@
         <activity android:name=".LoginActivity">
 
         </activity>
+        <!-- メンバーリスト画面 -->
+        <activity android:name=".MemberListActivity">
+
+        </activity>
         <!-- メンバー詳細画面 -->
         <activity android:name=".MemberDetailActivity">
 

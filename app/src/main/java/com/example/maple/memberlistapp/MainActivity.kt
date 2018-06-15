@@ -26,21 +26,22 @@ class MainActivity : AppCompatActivity(), IAPI, NavigationView.OnNavigationItemS
         Log.d(TAG, "onCreate")
         setContentView(R.layout.activity_main)
 
-        //ログインしているか確認
+        //ログインしているかの有無で表示する画面を変える
+        val intent: Intent
         if(isLogined()) {
-            //メンバー表示フラグメント
-
+            //メンバー表示画面
+            intent = Intent(this, MemberListActivity::class.java)
         } else {
             //ログイン画面
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            intent = Intent(this, LoginActivity::class.java)
 //            val loginFragment: LoginFragment = LoginFragment()
 //            //fragmentTransaction.add(R.id.mFrameLayout, loginFragment)
 //            fragmentTransaction.replace(R.id.login_frame_layout, loginFragment)
 //            fragmentTransaction.addToBackStack(null)
 //            fragmentTransaction.commit()
         }
+        startActivity(intent)
+        finish()
 
 //        val pref: SharedPreferences = getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
 //        val lastDate: String = pref.getString(Util.PREF_KEY_LAST_UPDATE_TIME, "")
