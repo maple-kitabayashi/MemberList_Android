@@ -73,7 +73,7 @@ class MemberListFragment : Fragment(), IAPI {
             cardName.setText(user.name)
             cardBirthDay.setText(user.birthDay)
 
-            //押下時、詳細画面へ遷移
+            //押下時、詳細画面を表示
             cardView.setOnClickListener {
                 val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity!!, cardImage, cardImage.transitionName)
                 val intent = Intent(activity, MemberDetailActivity::class.java)

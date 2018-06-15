@@ -1,16 +1,20 @@
 package com.example.maple.memberlistapp
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_member_list.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack {
+class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         val TAG = MemberListActivity::class.java.simpleName
@@ -21,11 +25,24 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack {
         setContentView(R.layout.activity_member_list)
         Log.d(TAG, "onCreate")
 
+        navigationViewSetting()
+
         val transaction = supportFragmentManager.beginTransaction()
         val fragment    = MemberListFragment()
         transaction.replace(R.id.mMemListFrame, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    /**
+     * ナビゲーションビューの設定
+     */
+    private fun navigationViewSetting() {
+        val header   = mNavigationView.getHeaderView(0)
+        val nameText = header.findViewById(R.id.nav_header_name) as TextView
+        val menu     = mNavigationView.menu
+
+        mNavigationView.setNavigationItemSelectedListener(this)
     }
 
     /**
@@ -56,6 +73,25 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack {
         var editor = pref.edit()
         editor.putString(Util.PREF_KEY_LAST_UPDATE_TIME, nowTime)
         editor.commit()
+    }
+
+    private fun createMyDetailActivity() {
+        Log.d(MemberDetailActivity.TAG, "createMyDetailActivity")
+        val intent = Intent(this, MemberDetailActivity::class.java)
+        intent.putExtra(R.string.detail_activity_key_id.toString(), "1")
+        intent.putExtra(R.string.detail_activity_key_visibility.toString(), true)
+        startActivity(intent)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Log.d(MemberDetailActivity.TAG, "onNavigationItemSelected")
+        when (item.itemId) {
+        //プロフィールメニュー
+            R.id.nc_profile -> {
+                createMyDetailActivity()
+            }
+        }
+        return false
     }
 
     override fun onBackPressed() {
