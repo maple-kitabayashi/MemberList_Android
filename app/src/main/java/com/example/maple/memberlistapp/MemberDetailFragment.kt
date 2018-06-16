@@ -77,18 +77,36 @@ class MemberDetailFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d(TAG, "onActivityResult")
-
+        //要求コード(requestCode)がstartActivityForResultで渡した値と一致するか、
+        //操作が成功した時の値であるRESULT_OKであるか確認
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                val uri: Uri = data.data
-                try {
-                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, uri)
-                    mDetailImage.setImageBitmap(bitmap)
+            tryChangeProfileImage(data)
+        }
+    }
 
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+    /**
+     * プロフィール画像の変更にトライする
+     */
+    private fun tryChangeProfileImage(data: Intent?) {
+        if (data != null) {
+            val uri: Uri = data.data //画像のURIを取得
+            try {
+                changeProfileImage(uri)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
+    }
+
+    /**
+     * プロフィール画像を変更
+     */
+    private fun changeProfileImage(uri: Uri) {
+        val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, uri)
+        //詳細画面の画像を変更
+        mDetailImage.setImageBitmap(bitmap)
+
+        //TODO ローカルDBに保存する
+        //ローカルDBに画像を保存
     }
 }
