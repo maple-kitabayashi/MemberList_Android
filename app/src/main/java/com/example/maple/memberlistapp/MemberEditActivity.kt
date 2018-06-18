@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import kotlinx.android.synthetic.main.activity_edit.*
 
-class EditActivity : AppCompatActivity() {
+class MemberEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
