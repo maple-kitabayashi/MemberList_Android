@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <FrameLayout
+        android:id="@+id/edit_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- アイコン -->
-    <ImageView
-        android:id="@+id/mEditImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:src="@mipmap/ic_launcher" />
+    <!--
+        <ImageView
+            android:id="@+id/mEditImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/mEditSkill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profile_skill" />
+        <TextView
+            android:id="@+id/mEditSkill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_skill" />
 
-    <EditText
-        android:id="@+id/mEditSkillText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/mEditSkillText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/mEditHobby"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profile_hobby" />
+        <TextView
+            android:id="@+id/mEditHobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_hobby" />
 
-    <EditText
-        android:id="@+id/mEditHobbyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/mEditHobbyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/mEditSaveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/mEditSaveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    -->
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

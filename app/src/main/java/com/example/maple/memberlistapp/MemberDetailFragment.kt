@@ -49,7 +49,7 @@ class MemberDetailFragment : Fragment() {
 
         mDetailEditBtn.setOnClickListener {
             Log.d(TAG, "setOnClickListener")
-            val intent = Intent(activity, EditActivity::class.java)
+            val intent = Intent(activity, MemberEditActivity::class.java)
             intent.putExtra("testName", mDetailName.text)
             intent.putExtra("testBirthDay", mDetailBirthDayText.text)
             intent.putExtra("testSkill", mDetailSkillText.text)
