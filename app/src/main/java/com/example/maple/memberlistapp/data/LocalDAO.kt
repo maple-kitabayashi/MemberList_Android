@@ -4,6 +4,7 @@ import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.api.User
 import io.realm.Realm
 import io.realm.RealmResults
+import io.realm.kotlin.where
 import java.util.*
 
 /**
@@ -70,6 +71,15 @@ class LocalDAO {
         }
     }
 
+    fun getMyAccount(): RealmResults<MyAccount>? {
+        var account: RealmResults<MyAccount>? = null
+        mRealm = Realm.getDefaultInstance()
+
+        mRealm.executeTransaction {
+            account = mRealm.where(MyAccount::class.java).findAll()
+        }
+        return account
+    }
 //    fun isLogined(): Boolean {
 //        mRealm = Realm.getDefaultInstance()
 //        return mRealm.where(MyAccount::class.java).findAll().size != 0

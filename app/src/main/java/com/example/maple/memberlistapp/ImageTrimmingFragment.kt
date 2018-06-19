@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +32,8 @@ class ImageTrimmingFragment : Fragment() {
     private val mCropCallback: CropCallback = object :CropCallback {
         override fun onSuccess(cropped: Bitmap?) {
             Log.d(TAG, "mCropCallback_onSuccess")
+            arguments!!.putParcelable("cropimg", cropped)
+            fragmentManager!!.popBackStack()
         }
 
         override fun onError(e: Throwable?) {
@@ -42,12 +43,10 @@ class ImageTrimmingFragment : Fragment() {
 
     private val mSaveCallback: SaveCallback = object :SaveCallback {
         override fun onSuccess(uri: Uri?) {
-            arguments!!.putParcelable("uri", uri)
-            activity!!.supportFragmentManager.popBackStack()
         }
 
         override fun onError(e: Throwable?) {
-            throw e!!
+            e!!.stackTrace
         }
     }
 

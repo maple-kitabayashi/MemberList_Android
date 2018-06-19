@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.isseiaoki.simplecropview.CropImageView
+    <com.isseiaoki.simplecropview.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mCropImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="9" />
+        android:layout_weight="9"
+         />
 
     <Button
         android:id="@+id/mTrimmingBtn"

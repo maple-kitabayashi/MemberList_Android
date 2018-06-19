@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.example.maple.memberlistapp.data.LocalDAO
 import kotlinx.android.synthetic.main.activity_member_list.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,11 +76,23 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
         editor.commit()
     }
 
+    /**
+     * ログイン中のユーザーの詳細画面を作成
+     */
     private fun createMyDetailActivity() {
         Log.d(MemberDetailActivity.TAG, "createMyDetailActivity")
         val intent = Intent(this, MemberDetailActivity::class.java)
         intent.putExtra(R.string.detail_activity_key_id.toString(), "1")
         intent.putExtra(R.string.detail_activity_key_visibility.toString(), true)
+
+        //TODO ローカルDBから取得
+        LocalDAO.LOCAL_DAO.readData()
+
+//        val bitmap =
+//        val bundle: Bundle = Bundle()
+//        bundle.putParcelable("img", bitmap)
+//        intent.putExtras(bundle)
+
         startActivity(intent)
     }
 

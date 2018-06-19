@@ -2,6 +2,7 @@ package com.example.maple.memberlistapp
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,7 +13,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.isseiaoki.simplecropview.callback.LoadCallback
 import kotlinx.android.synthetic.main.fragment_edit.*
 import java.io.IOException
 
@@ -32,6 +32,9 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
         Log.d(TAG, "onViewCreated")
 
         val intent:   Intent = activity!!.intent
+        //val bundle:   Bundle = intent.getParcelableExtra("bundle")
+
+        var imageBmp: Bitmap = intent!!.extras.getParcelable("img")
         val name:     String = intent.getStringExtra("testName")
         val birthDay: String = intent.getStringExtra("testBirthDay")
         val skill:    String = intent.getStringExtra("testSkill")
@@ -41,6 +44,7 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
         val factory: Editable.Factory = Editable.Factory.getInstance()
 
         //現在設定中の内容を表示する
+        mEditImage.setImageBitmap(imageBmp)
         mEditSkillText.text = factory.newEditable(skill)
         mEditHobbyText.text = factory.newEditable(hobby)
 
@@ -80,7 +84,7 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
      */
     private fun clickImage() {
         //デフォルトのアルバムアプリを開く
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.getMediaScannerUri())
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
         startActivityForResult(intent, READ_REQUEST_CODE)
     }

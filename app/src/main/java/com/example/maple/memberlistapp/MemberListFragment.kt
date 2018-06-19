@@ -80,6 +80,11 @@ class MemberListFragment : Fragment(), IAPI {
                 
                 intent.putExtra(R.string.detail_activity_key_id.toString(), user.id)
                 intent.putExtra(R.string.detail_activity_key_visibility.toString(), false)
+
+                val bitmap = cardImage.drawingCache
+                val bundle: Bundle = Bundle()
+                bundle.putParcelable("img", bitmap)
+                intent.putExtras(bundle)
                 startActivity(intent, compat.toBundle())
             }
             //カード追加
