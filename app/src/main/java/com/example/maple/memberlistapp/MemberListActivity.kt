@@ -3,13 +3,16 @@ package com.example.maple.memberlistapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.Image
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import com.example.maple.memberlistapp.api.MyAccount
 import com.example.maple.memberlistapp.data.LocalDAO
 import kotlinx.android.synthetic.main.activity_member_list.*
 import java.text.SimpleDateFormat
@@ -21,12 +24,12 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
         val TAG = MemberListActivity::class.java.simpleName
     }
 
+    private lateinit var mAccount: MyAccount //ユーザーアカウントデータ
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_member_list)
         Log.d(TAG, "onCreate")
-
-        navigationViewSetting()
 
         val transaction = supportFragmentManager.beginTransaction()
         val fragment    = MemberListFragment()
@@ -39,10 +42,15 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
      * ナビゲーションビューの設定
      */
     private fun navigationViewSetting() {
-        val header   = mNavigationView.getHeaderView(0)
-        val nameText = header.findViewById(R.id.nav_header_name) as TextView
-        val menu     = mNavigationView.menu
+        val header    = mNavigationView.getHeaderView(0)
+        val iconImage = header.findViewById(R.id.nav_header_image) as ImageView
+        val nameText  = header.findViewById(R.id.nav_header_name) as TextView
+        val menu      = mNavigationView.menu
 
+        //アカウントのデータを反映させる
+        //TODO 画像取得処理完了してから
+        //iconImage     = mAccount.image
+        nameText.text = mAccount.name
         mNavigationView.setNavigationItemSelectedListener(this)
     }
 
@@ -54,6 +62,7 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
         Log.d(TAG, "callback")
         updateLastUpdateTime()                  //最終更新時間を更新
         saveAccountData()                       //アカウント情報を保存
+        navigationViewSetting()                 //ナビゲーションビューの設定
         mMemListBar.visibility   = View.GONE    //プログレスバー非表示
         mMemListFrame.visibility = View.VISIBLE //フレームレイアウト(メンバーリスト)表示
     }
@@ -101,8 +110,8 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
      * アカウント情報をローカルDBに保存する処理を行う
      */
     private fun saveAccountData() {
-        val accountData = LocalDAO.LOCAL_DAO.getMyAccount()
-        LocalDAO.LOCAL_DAO.saveMyAccount(accountData)
+        mAccount = LocalDAO.LOCAL_DAO.getMyAccount()!!
+        LocalDAO.LOCAL_DAO.saveMyAccount(mAccount)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
