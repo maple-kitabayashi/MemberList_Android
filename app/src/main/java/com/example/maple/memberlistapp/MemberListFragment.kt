@@ -70,8 +70,8 @@ class MemberListFragment : Fragment(), IAPI {
             val cardName     = linearLayout.findViewById(R.id.mCardName)                as TextView
             val cardBirthDay = linearLayout.findViewById(R.id.card_birthday)              as TextView
 
-            cardName.setText(user.name)
-            cardBirthDay.setText(user.birthDay)
+            cardName.text     = user.name
+            cardBirthDay.text = user.birthDay
 
             //押下時、詳細画面を表示
             cardView.setOnClickListener {

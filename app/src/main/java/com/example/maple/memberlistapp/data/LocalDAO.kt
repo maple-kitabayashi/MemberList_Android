@@ -54,8 +54,8 @@ class LocalDAO {
                 data.skill    = user.skill
                 data.hobby    = user.hobby
                 //TODO 実データで実施まで50個のデータで行う
-                if (index == 50)
-                    break
+//                if (index == 50)
+//                    break
             }
         }
     }

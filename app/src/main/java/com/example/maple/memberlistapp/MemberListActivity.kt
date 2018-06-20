@@ -92,11 +92,11 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
     private fun createMyDetailActivity() {
         Log.d(MemberDetailActivity.TAG, "createMyDetailActivity")
         val intent = Intent(this, MemberDetailActivity::class.java)
-        intent.putExtra(R.string.detail_activity_key_id.toString(), "1")
+        intent.putExtra(R.string.detail_activity_key_id.toString(), mAccount.id)
         intent.putExtra(R.string.detail_activity_key_visibility.toString(), true)
 
         //TODO ローカルDBから取得
-        LocalDAO.LOCAL_DAO.getMyAccount()
+        //LocalDAO.LOCAL_DAO.getMyAccount()
 
 //        val bitmap =
 //        val bundle: Bundle = Bundle()

@@ -74,6 +74,4 @@ class MemberDetailFragment : Fragment() {
         mDetailHobbyText.text    = member!!.hobby
     }
 
-
-
 }
