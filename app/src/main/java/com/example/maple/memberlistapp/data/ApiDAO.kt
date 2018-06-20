@@ -93,7 +93,7 @@ class ApiDAO {
 
         val account: MyAccount = list.first()
         if (account.id != "-1") {
-            LocalDAO.LOCAL_DAO.saveMyAccount(list) //保存
+            LocalDAO.LOCAL_DAO.InitSaveMyAccount(account) //初期保存(IDとNAMEのみ)
             call.onApiCompleted() //成功
         } else {
             call.onApiFailed()    //失敗

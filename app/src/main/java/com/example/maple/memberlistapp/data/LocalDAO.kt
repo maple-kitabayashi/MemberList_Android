@@ -61,25 +61,50 @@ class LocalDAO {
     }
 
     //マイアカウントを保存
-    fun saveMyAccount(list: List<MyAccount>) {
+    fun saveMyAccount(newAccount: MyAccount?) {
+        val account = getMyAccount()
+
         mRealm = Realm.getDefaultInstance()
 
         mRealm.executeTransaction {
-            val account   = list.first()
-            val saveData  = mRealm.createObject(MyAccount::class.java, account.id)
-            saveData.name = account.name
+            account!!.name     = newAccount!!.name
+            account.birthDay = newAccount.birthDay
+            account.skill    = newAccount.skill
+            account.hobby    = newAccount.hobby
+
+            //画像アイコンは設定慣れていない場合があるので注意
+            //TODO サーバDBにデフォルトアイコンを用意すると楽
+            if (newAccount.image != null) {
+                account.image = newAccount.image
+            }
+
         }
     }
 
-    fun getMyAccount(): RealmResults<MyAccount>? {
-        var account: RealmResults<MyAccount>? = null
+    //マイアカウント初期保存
+    fun InitSaveMyAccount(account: MyAccount?) {
         mRealm = Realm.getDefaultInstance()
 
         mRealm.executeTransaction {
-            account = mRealm.where(MyAccount::class.java).findAll()
+            val saveDate  = mRealm.createObject(MyAccount::class.java, account!!.id)
+            saveDate.name = account.name
         }
-        return account
     }
+
+    /**
+     * マイアカウントデータを取得
+     */
+//    fun getMyAccount(): MyAccount?/*RealmResults<MyAccount>?*/ {
+//        var account: RealmResults<MyAccount>? = null
+//        mRealm = Realm.getDefaultInstance()
+//
+//        mRealm.executeTransaction {
+//            account = mRealm.where(MyAccount::class.java).findAll()
+//        }
+//        return account!!.first()
+//    }
+
+    fun getMyAccount(): MyAccount? = mRealm.where(MyAccount::class.java).findFirst()
 //    fun isLogined(): Boolean {
 //        mRealm = Realm.getDefaultInstance()
 //        return mRealm.where(MyAccount::class.java).findAll().size != 0

@@ -53,6 +53,7 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
     override fun callback() {
         Log.d(TAG, "callback")
         updateLastUpdateTime()                  //最終更新時間を更新
+        saveAccountData()                       //アカウント情報を保存
         mMemListBar.visibility   = View.GONE    //プログレスバー非表示
         mMemListFrame.visibility = View.VISIBLE //フレームレイアウト(メンバーリスト)表示
     }
@@ -86,7 +87,7 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
         intent.putExtra(R.string.detail_activity_key_visibility.toString(), true)
 
         //TODO ローカルDBから取得
-        LocalDAO.LOCAL_DAO.readData()
+        LocalDAO.LOCAL_DAO.getMyAccount()
 
 //        val bitmap =
 //        val bundle: Bundle = Bundle()
@@ -94,6 +95,14 @@ class MemberListActivity : AppCompatActivity(), MemberListFragment.CallBack, Nav
 //        intent.putExtras(bundle)
 
         startActivity(intent)
+    }
+
+    /**
+     * アカウント情報をローカルDBに保存する処理を行う
+     */
+    private fun saveAccountData() {
+        val accountData = LocalDAO.LOCAL_DAO.getMyAccount()
+        LocalDAO.LOCAL_DAO.saveMyAccount(accountData)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
