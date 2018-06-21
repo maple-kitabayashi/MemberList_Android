@@ -33,6 +33,7 @@ open class MemberListApplication : Application() {
         var edit = preferences.edit()
         edit.putBoolean("isFirstTime", false)
         edit.putString(Util.PREF_KEY_LAST_UPDATE_TIME, Util.DEFAULT_LAST_UPDATE_TIME) //最終更新日の初期値を設定
+        edit.putString(Util.KEY_UPDATE_SKILL, Util.DEFAULT_LAST_UPDATE_TIME)
         edit.commit()
     }
 

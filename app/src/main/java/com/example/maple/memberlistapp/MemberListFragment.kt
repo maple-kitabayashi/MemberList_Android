@@ -1,5 +1,6 @@
 package com.example.maple.memberlistapp
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.CardView
 import android.util.Log
@@ -21,6 +23,8 @@ import com.example.maple.memberlistapp.data.LocalDAO
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_member_list.*
 import kotlinx.coroutines.experimental.Deferred
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -93,6 +97,40 @@ class MemberListFragment : Fragment(), IAPI {
         Log.d(TAG, "setCardData_end")
     }
 
+    /**
+     * 端末で保存している最終更新時間を更新
+     */
+    private fun updateLastUpdateTime() {
+        Log.d(MemberListActivity.TAG, "updateLastUpdateTime")
+
+        //現在の日時を取得
+        val date: Date = Date()
+        val nowTime    = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
+
+        Log.d(MemberListActivity.TAG, "nowTime = " + nowTime)
+
+        //プリファレンスに保存
+        val pref: SharedPreferences = activity!!.getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
+        var editor = pref.edit()
+        editor.putString(Util.PREF_KEY_LAST_UPDATE_TIME, nowTime)
+        editor.commit()
+    }
+
+
+    private fun updateFetchTime() {
+        Log.d(TAG, "updateFetchTime")
+
+        //現在の日時を取得
+        val date: Date = Date()
+        val nowTime    = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
+
+        //プリファレンスに保存
+        val pref: SharedPreferences = activity!!.getSharedPreferences(Util.PREF_LAST_UPDATE, Context.MODE_PRIVATE)
+        var editor = pref.edit()
+        editor.putString(Util.KEY_UPDATE_SKILL, nowTime)
+        editor.commit()
+    }
+
     private fun userApiCompleted() {
         Log.d(TAG, "userApiCompleted")
 
@@ -100,7 +138,10 @@ class MemberListFragment : Fragment(), IAPI {
         var userData = LocalDAO.LOCAL_DAO.readData()
         //カードビューにデータをセット
         setCardData(userData)
-        ApiDAO.API_DAO.fetchSkillData(this, "1991-12-16 00:00:00")
+        //更新時間変更
+        updateLastUpdateTime()
+
+        ApiDAO.API_DAO.fetchSkillData(this, Util.KEY_UPDATE_SKILL)
     }
 
     private fun skillApiCompeted() {
