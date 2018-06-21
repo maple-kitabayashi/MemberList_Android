@@ -8,6 +8,7 @@ import com.example.maple.memberlistapp.LoginActivity
 import com.example.maple.memberlistapp.UserService
 import com.example.maple.memberlistapp.Util
 import com.example.maple.memberlistapp.api.MyAccount
+import com.example.maple.memberlistapp.api.Skill
 import com.example.maple.memberlistapp.api.User
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -53,14 +54,48 @@ class ApiDAO {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { list -> getUsers(list, call) },                       //onNext
-                        { throwable ->  throw throwable },                      //onError
+                        { list -> getUsers(list, call) },                //onNext
+                        { throwable ->  throw throwable },               //onError
                         { Log.d(TAG, "getUserData is complete!") } //onComplete
                 )
     }
 
     private fun getUsers(list :List<User>, call: IAPI) {
         LocalDAO.LOCAL_DAO.writeDataList(list) //ローカルDBへ保存
+        call.onApiCompleted()
+    }
+
+    /**
+     * サーバDBに保存しているスキルデータを取得し、
+     * ローカルDBへ保存する
+     */
+    fun fetchSkillData(call: IAPI, lastData: String) {
+        Log.d(TAG, "fetchSkillData")
+
+        retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://ms-employees.herokuapp.com/")
+                .build()
+
+        val service: UserService = retrofit.create(UserService::class.java)
+
+        //非同期でAPIと通信
+        disposable = service.getSkills(lastData)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { list -> saveSkillData(list, call) },
+                        { throwable -> throw throwable },
+                        { Log.d(TAG, "fetchSkillData is complete!") }
+                )
+    }
+
+    /**
+     * スキルデータをローカルDBへ保存
+     */
+    private fun saveSkillData(list: List<Skill>, call: IAPI) {
+        LocalDAO.LOCAL_DAO.saveSkillData(list)
         call.onApiCompleted()
     }
 

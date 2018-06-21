@@ -1,6 +1,7 @@
 package com.example.maple.memberlistapp.data
 
 import com.example.maple.memberlistapp.api.MyAccount
+import com.example.maple.memberlistapp.api.Skill
 import com.example.maple.memberlistapp.api.User
 import io.realm.Realm
 import io.realm.RealmResults
@@ -56,6 +57,17 @@ class LocalDAO {
                 //TODO 実データで実施まで50個のデータで行う
 //                if (index == 50)
 //                    break
+            }
+        }
+    }
+
+    fun saveSkillData(list: List<Skill>) {
+        mRealm = Realm.getDefaultInstance()
+
+        mRealm.executeTransaction {
+            for (skill in list) {
+                val data = mRealm.createObject(Skill::class.java, skill.id)
+                data.skill_name = skill.skill_name
             }
         }
     }
