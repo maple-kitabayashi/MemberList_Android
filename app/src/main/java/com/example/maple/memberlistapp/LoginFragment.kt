@@ -46,7 +46,7 @@ class LoginFragment : Fragment(), IAPI {
     /**
      * ログイン成功コールバック
      */
-    override fun onApiCompleted() {
+    override fun onApiCompleted(type: IAPI.TYPE) {
         Log.d(TAG, "onApiCompleted")
 
         //ログイン状態に変更
@@ -62,7 +62,7 @@ class LoginFragment : Fragment(), IAPI {
     /**
      * ログイン失敗コールバック
      */
-    override fun onApiFailed() {
+    override fun onApiFailed(type: IAPI.TYPE) {
         Log.d(TAG, "onApiFailed")
         //TODO ユーザーに失敗したのを伝える
     }

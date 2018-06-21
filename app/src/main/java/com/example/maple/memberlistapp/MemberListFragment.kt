@@ -97,7 +97,7 @@ class MemberListFragment : Fragment(), IAPI {
      * ユーザーデータ取得成功コールバック
      * ローカルDBからユーザーデータを取得し、レイアウトに反映
      */
-    override fun onApiCompleted() {
+    override fun onApiCompleted(type: IAPI.TYPE) {
         //ローカルDBからデータ読み込み
         var userData = LocalDAO.LOCAL_DAO.readData()
         //カードビューにデータをセット
@@ -106,7 +106,7 @@ class MemberListFragment : Fragment(), IAPI {
         callBack.callback()
     }
 
-    override fun onApiFailed() {
+    override fun onApiFailed(type: IAPI.TYPE) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
