@@ -62,7 +62,7 @@ class ApiDAO {
 
     private fun getUsers(list :List<User>, call: IAPI) {
         LocalDAO.LOCAL_DAO.writeDataList(list) //ローカルDBへ保存
-        call.onApiCompleted()
+        call.onApiCompleted(IAPI.TYPE.USER)
     }
 
     /**
@@ -95,8 +95,10 @@ class ApiDAO {
      * スキルデータをローカルDBへ保存
      */
     private fun saveSkillData(list: List<Skill>, call: IAPI) {
+        Log.d(TAG, "saveSkillData")
+
         LocalDAO.LOCAL_DAO.saveSkillData(list)
-        call.onApiCompleted()
+        call.onApiCompleted(IAPI.TYPE.SKILL)
     }
 
     /**

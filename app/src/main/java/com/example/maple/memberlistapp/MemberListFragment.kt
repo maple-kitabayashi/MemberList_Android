@@ -93,17 +93,33 @@ class MemberListFragment : Fragment(), IAPI {
         Log.d(TAG, "setCardData_end")
     }
 
+    private fun userApiCompleted() {
+        Log.d(TAG, "userApiCompleted")
+
+        //ローカルDBからデータ読み込み
+        var userData = LocalDAO.LOCAL_DAO.readData()
+        //カードビューにデータをセット
+        setCardData(userData)
+        ApiDAO.API_DAO.fetchSkillData(this, "1991-12-16 00:00:00")
+    }
+
+    private fun skillApiCompeted() {
+        Log.d(TAG, "skillApiCompeted")
+
+        //セットが完了したらコールバックでリスト表示処理を実行
+        callBack.callback()
+    }
+
     /**
      * ユーザーデータ取得成功コールバック
      * ローカルDBからユーザーデータを取得し、レイアウトに反映
      */
     override fun onApiCompleted(type: IAPI.TYPE) {
-        //ローカルDBからデータ読み込み
-        var userData = LocalDAO.LOCAL_DAO.readData()
-        //カードビューにデータをセット
-        setCardData(userData)
-        //セットが完了したらコールバックでリスト表示処理を実行
-        callBack.callback()
+        when(type) {
+            IAPI.TYPE.USER  -> userApiCompleted()
+
+            IAPI.TYPE.SKILL -> skillApiCompeted()
+        }
     }
 
     override fun onApiFailed(type: IAPI.TYPE) {
