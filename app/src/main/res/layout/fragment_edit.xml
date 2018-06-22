@@ -7,11 +7,11 @@
     <!-- アイコン -->
     <ImageView
         android:id="@+id/mEditImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/edit_icon_size"
+        android:layout_height="@dimen/edit_icon_size"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-         />
+        android:theme="@style/EditIconStyle" />
 
     <TextView
         android:id="@+id/mEditSkill"
