@@ -131,6 +131,21 @@ class MemberListFragment : Fragment(), IAPI {
         editor.commit()
     }
 
+    /**
+     * データ取得成功コールバック
+     * 取得したデータによって、処理を変える
+     */
+    override fun onApiCompleted(type: IAPI.TYPE) {
+        when(type) {
+            IAPI.TYPE.USER  -> userApiCompleted()
+
+            IAPI.TYPE.SKILL -> skillApiCompeted()
+        }
+    }
+
+    /**
+     * ユーザーデータ取得成功時の処理
+     */
     private fun userApiCompleted() {
         Log.d(TAG, "userApiCompleted")
 
@@ -141,26 +156,23 @@ class MemberListFragment : Fragment(), IAPI {
         //更新時間変更
         updateLastUpdateTime()
 
-        ApiDAO.API_DAO.fetchSkillData(this, Util.KEY_UPDATE_SKILL)
-    }
+        //最終更新時間を取得
+        val preference = activity!!.getSharedPreferences(Util.PREF_LAST_UPDATE, MODE_PRIVATE)
+        val lastDate: String = preference.getString(Util.KEY_UPDATE_SKILL, "")
 
-    private fun skillApiCompeted() {
-        Log.d(TAG, "skillApiCompeted")
-
-        //セットが完了したらコールバックでリスト表示処理を実行
-        callBack.callback()
+        ApiDAO.API_DAO.fetchSkillData(this, lastDate)
     }
 
     /**
-     * ユーザーデータ取得成功コールバック
-     * ローカルDBからユーザーデータを取得し、レイアウトに反映
+     * スキルデータ取得成功時の処理
      */
-    override fun onApiCompleted(type: IAPI.TYPE) {
-        when(type) {
-            IAPI.TYPE.USER  -> userApiCompleted()
+    private fun skillApiCompeted() {
+        Log.d(TAG, "skillApiCompeted")
 
-            IAPI.TYPE.SKILL -> skillApiCompeted()
-        }
+        //取得時間変更
+        updateFetchTime()
+        //セットが完了したらコールバックでリスト表示処理を実行
+        callBack.callback()
     }
 
     override fun onApiFailed(type: IAPI.TYPE) {

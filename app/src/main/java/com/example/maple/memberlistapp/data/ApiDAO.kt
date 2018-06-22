@@ -54,9 +54,9 @@ class ApiDAO {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { list -> getUsers(list, call) },                //onNext
-                        { throwable ->  throw throwable },               //onError
-                        { Log.d(TAG, "getUserData is complete!") } //onComplete
+                        { list -> getUsers(list, call) },                  //onNext
+                        { throwable ->  throw throwable },                 //onError
+                        { Log.d(TAG, "fetchUserData is complete!") } //onComplete
                 )
     }
 
