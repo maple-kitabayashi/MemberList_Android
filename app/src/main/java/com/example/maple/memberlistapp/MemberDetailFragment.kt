@@ -3,6 +3,7 @@ package com.example.maple.memberlistapp
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -53,6 +54,8 @@ class MemberDetailFragment : Fragment() {
             intent.putExtra("testBirthDay", mDetailBirthDayText.text)
             intent.putExtra("testSkill", mDetailSkillText.text)
             intent.putExtra("testHobby", mDetailHobbyText.text)
+            val bmp: Bitmap = (mDetailImage.drawable as BitmapDrawable).bitmap
+            intent.putExtra("testBmp", bmp)
             startActivity(intent)
         }
 

@@ -34,7 +34,7 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
         val intent:   Intent = activity!!.intent
         //val bundle:   Bundle = intent.getParcelableExtra("bundle")
 
-        var imageBmp: Bitmap = intent!!.extras.getParcelable("img")
+        var imageBmp: Bitmap = intent!!.extras.getParcelable("testBmp")
         val name:     String = intent.getStringExtra("testName")
         val birthDay: String = intent.getStringExtra("testBirthDay")
         val skill:    String = intent.getStringExtra("testSkill")
