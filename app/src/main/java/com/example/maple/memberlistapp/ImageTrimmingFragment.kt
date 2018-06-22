@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.isseiaoki.simplecropview.CropImageView
 import com.isseiaoki.simplecropview.callback.CropCallback
 import com.isseiaoki.simplecropview.callback.LoadCallback
 import com.isseiaoki.simplecropview.callback.SaveCallback
@@ -36,7 +37,7 @@ class ImageTrimmingFragment : Fragment() {
             mCropImageView.startCrop(uri, mCropCallback, mSaveCallback)
         }
 
-
+        mCropImageView.setCropMode(CropImageView.CropMode.CIRCLE) //円形でトリミングする
         mCropImageView.startLoad(uri, mLoadCallback)
     }
 
