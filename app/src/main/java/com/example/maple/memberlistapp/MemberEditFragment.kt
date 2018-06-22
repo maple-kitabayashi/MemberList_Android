@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.fragment_edit.*
 import java.io.IOException
 
@@ -20,7 +21,8 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
 
     companion object {
         val TAG: String = MemberEditFragment::class.java.simpleName
-        private const val READ_REQUEST_CODE = 42 //要求コード
+        private const val READ_REQUEST_CODE     = 42 //画像取得要求コード
+        private const val TRIMMING_REQUEST_CODE = 41 //トリミング要求コード
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,9 +63,17 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
         Log.d(TAG, "onActivityResult")
         //要求コード(requestCode)がstartActivityForResultで渡した値と一致するか、
         //操作が成功した時の値であるRESULT_OKであるか確認
-        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            tryChangeProfileImage(data)
+        if (resultCode.equals(Activity.RESULT_OK)) {
+            when(requestCode) {
+                READ_REQUEST_CODE     -> tryChangeProfileImage(data)
+
+                TRIMMING_REQUEST_CODE -> setTrimmingIcon(data)
+            }
         }
+
+//        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            tryChangeProfileImage(data)
+//        }
     }
 
     /**
@@ -115,6 +125,11 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun setTrimmingIcon(data: Intent?) {
+        val trimmingBmp: Bitmap = data!!.extras.getParcelable("tri")
+        mEditImage.setImageBitmap(trimmingBmp)
+    }
+
     /**
      * プロフィール画像を変更
      */
@@ -128,7 +143,9 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
         val fragment                         = ImageTrimmingFragment()
 
         fragment.arguments                   = bundle //バンドル設定
-        transaction.replace(R.id.edit_frame_layout, fragment)
+        fragment.setTargetFragment(this, TRIMMING_REQUEST_CODE)
+        //transaction.replace(R.id.edit_frame_layout, fragment)
+        transaction.add(R.id.edit_frame_layout, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
         //val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, mUri)
@@ -143,4 +160,24 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
 //            }
 //        })
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "onDestroyView")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(TAG, "onDetach")
+    }
+
+    /**
+     * getter
+     */
+    fun getTrimmingTargetCode(): Int = TRIMMING_REQUEST_CODE
 }

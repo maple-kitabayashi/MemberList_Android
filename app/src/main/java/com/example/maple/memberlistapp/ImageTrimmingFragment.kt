@@ -1,5 +1,7 @@
 package com.example.maple.memberlistapp
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +21,25 @@ class ImageTrimmingFragment : Fragment() {
         val TAG: String = ImageTrimmingFragment::class.java.simpleName
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(TAG, "onCreateView")
+        return inflater.inflate(R.layout.fragment_image_trimming, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d(TAG, "onViewCreated")
+
+        val bundle: Bundle = arguments!!
+        val uri:    Uri    = bundle.getParcelable("uri")
+
+        mTrimmingBtn.setOnClickListener {
+            mCropImageView.startCrop(uri, mCropCallback, mSaveCallback)
+        }
+
+
+        mCropImageView.startLoad(uri, mLoadCallback)
+    }
+
     private val mLoadCallback: LoadCallback = object :LoadCallback {
         override fun onSuccess() {
             Log.d(TAG, "mLoadCallback_onSuccess")
@@ -33,7 +54,12 @@ class ImageTrimmingFragment : Fragment() {
         override fun onSuccess(cropped: Bitmap?) {
             Log.d(TAG, "mCropCallback_onSuccess")
             arguments!!.putParcelable("cropimg", cropped)
+
+            val CODE = (targetFragment as MemberEditFragment).getTrimmingTargetCode()
+            val data: Intent = Intent()
+            data.putExtra("tri", cropped)
             fragmentManager!!.popBackStack()
+            targetFragment!!.onActivityResult(CODE, Activity.RESULT_OK, data)
         }
 
         override fun onError(e: Throwable?) {
@@ -48,25 +74,5 @@ class ImageTrimmingFragment : Fragment() {
         override fun onError(e: Throwable?) {
             e!!.stackTrace
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG, "onCreateView")
-        return inflater.inflate(R.layout.fragment_image_trimming, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated")
-
-        val bundle: Bundle = arguments!!
-        val uri:    Uri    = bundle.getParcelable("uri")
-
-
-        mTrimmingBtn.setOnClickListener {
-            mCropImageView.startCrop(uri, mCropCallback, mSaveCallback)
-        }
-
-
-        mCropImageView.startLoad(uri, mLoadCallback)
     }
 }
