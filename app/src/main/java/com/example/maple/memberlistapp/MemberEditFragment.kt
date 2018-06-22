@@ -118,6 +118,9 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
             val uri: Uri = data.data //画像のURIを取得
             //changeProfileImage(uri)  //画像変更処理
             try {
+                //トリミング画面を表示する際、編集画面が透けて見えてしまうので隠す
+                mEditLayout.visibility = View.INVISIBLE
+
                 changeProfileImage(uri) //画像変更処理
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -128,6 +131,7 @@ class MemberEditFragment : Fragment(), View.OnClickListener {
     private fun setTrimmingIcon(data: Intent?) {
         val trimmingBmp: Bitmap = data!!.extras.getParcelable("tri")
         mEditImage.setImageBitmap(trimmingBmp)
+        mEditLayout.visibility = View.VISIBLE //隠していた編集画面を再表示
     }
 
     /**
